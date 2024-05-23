@@ -1,7 +1,7 @@
 
-https://github.com/bpking1/embyExternalUrl
+https://github.com/bpking1/embyExternalUrl docker版本
 
-docker版本
+### 可选参数
 
 AUTO_UPDATE：重启自动更新，true/false，默认true
 
@@ -11,24 +11,14 @@ NGINX_PORT：nginx端口，默认8091
 
 NGINX_SSL_PORT：nginx ssl端口，默认8095
 
+REPO_URL：仓库地址，默认`https://github.com/bpking1/embyExternalUrl.git`
+
+### 必填参数
+
 容器内配置文件路径/opt/constant.js
 
-docker-comppse.yml
-```angular2html
-version: '3'
-services:
-    medialinker:
-        restart: always
-        volumes:
-            - '/volume1/docker/medialinker/constant.js:/opt/constant.js'
-        environment:
-            - AUTO_UPDATE=false
-            - SERVER=emby
-            - NGINX_PORT=8091
-            - NGINX_SSL_PORT=8095
+### 部署方式
 
-        container_name: medialinker
-        image: 'thsrite/medialinker:latest'
-        network_mode: "host"
-```
+[docker-compose.yml](deploy/docker-compose.yml)
 
+[unraid模版](deploy/my-MediaLinker.xml)
