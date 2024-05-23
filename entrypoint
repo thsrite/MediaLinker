@@ -1,0 +1,52 @@
+#!/bin/bash
+# shellcheck shell=bash
+# shellcheck disable=SC2016
+# shellcheck disable=SC2154
+mkdir -p /var/cache/nginx/emby/image
+
+# 自动更新
+if [[ "${AUTO_UPDATE}" = "true" ]];then
+  cd /embyExternalUrl && git pull
+fi
+
+# 删除原有配置文件
+rm -rf /etc/nginx/conf.d /etc/nginx/nginx.conf
+
+# 根据服务获取不同的配置文件
+if [ "${SERVER}" = "emby" ]; then
+  ln -s /embyExternalUrl/emby2Alist/nginx/conf.d /etc/nginx/conf.d
+  ln -s /embyExternalUrl/emby2Alist/nginx/nginx.conf /etc/nginx/nginx.conf
+else
+  ln -s /embyExternalUrl/plex2Alist/nginx/conf.d /etc/nginx/conf.d
+  ln -s /embyExternalUrl/plex2Alist/nginx/nginx.conf /etc/nginx/nginx.conf
+fi
+
+# 创建配置文件
+cat << EOF > /etc/nginx/conf.d/includes/http.conf
+server_name default;
+listen ${NGINX_PORT}; ## Listens on port IPv4
+listen [::]:${NGINX_PORT}; # Listens on port IPv6
+EOF
+
+cat << EOF > /etc/nginx/conf.d/includes/https.conf
+server_name default;
+## SSL SETTINGS ##
+listen [::]:${NGINX_SSL_PORT} ssl; ## Listens on port IPv6 with ssl enabled
+listen ${NGINX_SSL_PORT} ssl; ## Listens on port IPv4 with ssl enabled
+# listen 8095 quic reuseport; ## http3 enabled
+http2 on; ## since nginx 1.25.1, the "listen ... http" directive is deprecated
+add_header Alt-Svc 'h3=":$server_port"; ma=86400'; ## http3 enabled
+ssl_session_timeout 30m;
+ssl_protocols TLSv1.3 TLSv1.2 TLSv1.1 TLSv1;
+ssl_certificate      /etc/nginx/conf.d/cert/fullchain.pem;  ## Location of your public PEM file.
+ssl_certificate_key  /etc/nginx/conf.d/cert/privkey.key;  ## Location of your private PEM file.
+ssl_session_cache shared:SSL:10m;
+error_page 497 =307 https://$host:$server_port$request_uri; ## if http and https use same port, Redirects http:// to https://
+EOF
+
+# 软连接配置文件
+rm -rf /etc/nginx/conf.d/constant.js
+ln -s /opt/constant.js /etc/nginx/conf.d/constant.js
+
+# 后台启动nginx
+nginx -g "daemon off;"
