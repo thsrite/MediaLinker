@@ -13,6 +13,11 @@ NGINX_SSL_PORT：nginx ssl端口，默认8095
 
 REPO_URL：仓库地址，默认`https://github.com/bpking1/embyExternalUrl.git`
 
+#### ssl证书容器内路径
+/etc/nginx/conf.d/cert/fullchain.pem
+
+/etc/nginx/conf.d/cert/privkey.key
+
 ### 必填参数
 
 容器内配置文件路径/opt/constant.js
