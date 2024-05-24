@@ -6,13 +6,15 @@ ENV LANG="C.UTF-8" \
     NGINX_PORT="8091" \
     NGINX_SSL_PORT="8095" \
     REPO_URL="https://github.com/bpking1/embyExternalUrl.git" \
-    SSL="true" \
+    SSL="false" \
+    SSL_CRON="0 /2   " \
     DOMAIN="" \
     AUTO_UPDATE="true" \
     SERVER="emby"
 
 # 安装git
-RUN apt-get update && apt-get install -y git wget && \
+RUN apt-get update &&  \
+    apt-get install -y git wget cron && \
     cd /tmp && \
     wget https://github.com/go-acme/lego/releases/download/v3.7.0/lego_v3.7.0_linux_amd64.tar.gz && \
     tar zxvf lego_v3.7.0_linux_amd64.tar.gz && \
@@ -24,7 +26,8 @@ RUN apt-get update && apt-get install -y git wget && \
 RUN git clone $REPO_URL /embyExternalUrl
 
 COPY entrypoint /entrypoint
+COPY check_certificate.sh /check_certificate.sh
 
-RUN chmod +x /entrypoint
+RUN chmod +x /entrypoint /check_certificate.sh
 
 ENTRYPOINT [ "/entrypoint" ]

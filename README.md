@@ -1,4 +1,3 @@
-
 https://github.com/bpking1/embyExternalUrl docker版本
 
 ### 可选参数
@@ -13,10 +12,21 @@ NGINX_SSL_PORT：nginx ssl端口，默认8095
 
 REPO_URL：仓库地址，默认`https://github.com/bpking1/embyExternalUrl.git`
 
-#### ssl证书容器内路径
-/etc/nginx/conf.d/cert/fullchain.pem
+SSL：是否开启ssl，true/false，默认false
 
-/etc/nginx/conf.d/cert/privkey.key
+SSL_CRON：ssl证书更新时间，默认每2小时执行一次
+
+DOMAIN：域名，开启SSL的时候必填
+
+#### ssl证书容器内路径
+
+/opt/fullchain.pem
+
+/opt/privkey.key
+
+#### ssl申请命令路径
+
+/opt/ssl
 
 ### 必填参数
 

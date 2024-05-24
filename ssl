@@ -1,0 +1,4 @@
+#https://go-acme.github.io/lego/dns/ dns模板
+
+CLOUDFLARE_DNS_API_TOKEN=APIkey \
+/lego --email 邮箱 --dns cloudflare --domains "${DOMAIN}" --accept-tos run
