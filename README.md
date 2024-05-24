@@ -1,4 +1,4 @@
-https://github.com/bpking1/embyExternalUrl docker版本
+https://github.com/chen3861229/embyExternalUrl docker版本
 
 ### 可选参数
 
@@ -10,7 +10,7 @@ NGINX_PORT：nginx端口，默认8091
 
 NGINX_SSL_PORT：nginx ssl端口，默认8095
 
-REPO_URL：仓库地址，默认`https://github.com/bpking1/embyExternalUrl.git`
+REPO_URL：仓库地址，默认`https://github.com/chen3861229/embyExternalUrl`
 
 SSL：是否开启ssl，true/false，默认false
 
