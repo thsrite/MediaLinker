@@ -1,4 +1,6 @@
-https://github.com/chen3861229/embyExternalUrl docker版本
+原作者仓库：https://github.com/chen3861229/embyExternalUrl 
+
+本项目为大佬项目的docker版本，旨在简化部署方式、方便更新。
 
 ### 可选参数
 
