@@ -55,8 +55,6 @@ if [ "${SSL_ENABLE}" = "true" ]; then
   sed -i 's/#.*include \/etc\/nginx\/conf.d\/includes\/https.conf;/include \/etc\/nginx\/conf.d\/includes\/https.conf;/' /etc/nginx/conf.d/*.conf
 
   # SSL_DOMAIN、SSL变量替换
-  mv /check_certificate.sh /check_certificate.sh.bk
-  envsubst '${SSL_DOMAIN}${SSL_ENABLE}' < /check_certificate.sh.bk > /check_certificate.sh
   /bin/sh /check_certificate.sh
 
   # 清空定时任务

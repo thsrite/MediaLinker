@@ -13,7 +13,7 @@ ENV LANG="C.UTF-8" \
     SERVER="emby"
 
 # 安装git
-RUN apk --no-cache add nginx nginx-mod-http-js wget busybox git gettext && \
+RUN apk --no-cache add nginx nginx-mod-http-js wget busybox git && \
     mkdir -p /var/cache/nginx/emby/image && \
     git clone $REPO_URL /embyExternalUrl && \
     wget -O /tmp/lego_v3.7.0_linux_amd64.tar.gz https://github.com/go-acme/lego/releases/download/v3.7.0/lego_v3.7.0_linux_amd64.tar.gz && \
