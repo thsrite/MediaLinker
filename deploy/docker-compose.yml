@@ -11,5 +11,5 @@ services:
             - NGINX_SSL_PORT=8095
 
         container_name: medialinker
-        image: 'thsrite/medialinker:alpine'
+        image: 'thsrite/medialinker:latest'
         network_mode: "host"

@@ -27,7 +27,7 @@
     --name MediaLinker \
     -p 8091:8091 \
     -v /home/MediaLinker/:/opt/ \
-    thsrite/medialinker:alpine
+    thsrite/medialinker:latest
 ```
 
 #### [docker-compose](deploy/docker-compose.yml)
