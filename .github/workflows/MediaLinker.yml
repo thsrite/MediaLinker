@@ -19,7 +19,7 @@ jobs:
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/medialinker
           tags: |
-            type=raw,value=latest
+            type=raw,value=alpine
 
       - name: Set Up QEMU
         uses: docker/setup-qemu-action@v3
