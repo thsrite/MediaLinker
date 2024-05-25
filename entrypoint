@@ -38,8 +38,13 @@ if [ ! -h "/etc/nginx/conf.d/constant.js" ]; then
 fi
 
 # nginx日志输出到stdout
-sed -i '/pid\s*\/var\/run\/nginx.pid;/i error_log /dev/stdout info;' /etc/nginx/nginx.conf
-sed -i '/sendfile\s*on;/i\    access_log /dev/stdout main;' /etc/nginx/nginx.conf
+if ! grep -q "error_log /dev/stdout info;" /etc/nginx/nginx.conf; then
+  sed -i '/pid\s*\/var\/run\/nginx.pid;/i error_log /dev/stdout info;' /etc/nginx/nginx.conf
+fi
+if ! grep -q "access_log /dev/stdout main;" /etc/nginx/nginx.conf; then
+  sed -i '/sendfile\s*on;/i\    access_log /dev/stdout main;' /etc/nginx/nginx.conf
+fi
+
 
 # 替换http、https端口
 sed -i "s/8091/${NGINX_PORT}/g" "/etc/nginx/conf.d/includes/http.conf"
@@ -62,7 +67,10 @@ if [ "${SSL_ENABLE}" = "true" ]; then
   pkill -f crond
   /usr/sbin/crond
 else
-  sed -i 's/include \/etc\/nginx\/conf.d\/includes\/https\.conf;/#&/g' /etc/nginx/conf.d/*.conf
+  if ! grep -q "^#.*include \/etc\/nginx\/conf.d\/includes\/https\.conf;" /etc/nginx/conf.d/*.conf; then
+    sed -i 's/include \/etc\/nginx\/conf.d\/includes\/https\.conf;/#&/g' /etc/nginx/conf.d/*.conf
+  fi
+
 fi
 
 # 后台启动nginx
