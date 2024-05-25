@@ -52,14 +52,15 @@ if [ "${SSL_ENABLE}" = "true" ]; then
   # SSL_DOMAIN、SSL变量替换
   mv /check_certificate.sh /check_certificate.sh.bk
   envsubst '${SSL_DOMAIN}${SSL_ENABLE}' < /check_certificate.sh.bk > /check_certificate.sh
-  ./check_certificate.sh
+  /bin/sh /check_certificate.sh
 
-  # 写入定时任务
-  crontab -r
+  # 清空定时任务
+  crontab -d
   # 将新的定时任务写入crontab
   echo "${SSL_CRON} ./check_certificate.sh" | crontab -
   # 重启cron服务使修改生效
-  rc-service dcron restart
+  pkill -f crond
+  /usr/sbin/crond
 else
   sed -i 's/include \/etc\/nginx\/conf.d\/includes\/https\.conf;/#&/g' /etc/nginx/conf.d/*.conf
 fi

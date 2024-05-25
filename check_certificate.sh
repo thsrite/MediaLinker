@@ -19,7 +19,7 @@ if [ "${SSL_ENABLE}" = "true" ]; then
           # 判断证书是否在 30 天内到期
           if [ $days_until_expiry -le 30 ]; then
               echo "证书将在 $days_until_expiry 天内到期，执行证书申请脚本"
-              bash /opt/ssl
+              /bin/sh /opt/ssl
 
               # 检查证书是否被 Let's Encrypt 成功签发
               if ls /.lego/certificates | grep "${SSL_DOMAIN}"; then
@@ -43,7 +43,7 @@ if [ "${SSL_ENABLE}" = "true" ]; then
           fi
       else
           echo "开始申请域名证书"
-          bash /opt/ssl
+          /bin/sh /opt/ssl
       fi
   else
       echo "SSL脚本不存在。"
