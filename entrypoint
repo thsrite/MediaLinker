@@ -31,7 +31,7 @@ sed -i "s/8091/${NGINX_PORT}/g" "/etc/nginx/conf.d/includes/http.conf"
 sed -i "s/8095/${NGINX_SSL_PORT}/g" "/etc/nginx/conf.d/includes/https.conf"
 
 # 软连接配置文件
-if [ ! -e "/etc/nginx/conf.d/constant.js" ]; then
+if [ ! -h "/etc/nginx/conf.d/constant.js" ]; then
   rm -rf /etc/nginx/conf.d/constant.js
   ln -s /opt/constant.js /etc/nginx/conf.d/constant.js
 fi
