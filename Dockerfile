@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM alpine:latest
 
 # 环境变量
 ENV LANG="C.UTF-8" \
@@ -8,23 +8,23 @@ ENV LANG="C.UTF-8" \
     REPO_URL="https://github.com/chen3861229/embyExternalUrl" \
     SSL="false" \
     SSL_CRON="0 /2   " \
-    DOMAIN="" \
-    AUTO_UPDATE="true" \
+    SSL_DOMAIN="" \
+    AUTO_UPDATE="false" \
     SERVER="emby"
 
-COPY entrypoint /entrypoint
-COPY check_certificate.sh /check_certificate.sh
-
 # 安装git
-RUN apt-get update &&  \
-    apt-get install -y git wget cron && \
+RUN apk --no-cache add nginx nginx-mod-http-js wget dcron git && \
     mkdir -p /var/cache/nginx/emby/image && \
     git clone $REPO_URL /embyExternalUrl && \
-    chmod +x /entrypoint /check_certificate.sh && \
     wget -O /tmp/lego_v3.7.0_linux_amd64.tar.gz https://github.com/go-acme/lego/releases/download/v3.7.0/lego_v3.7.0_linux_amd64.tar.gz && \
     tar zxvf /tmp/lego_v3.7.0_linux_amd64.tar.gz -C /tmp && \
     chmod 755 /tmp/lego && \
     mv /tmp/lego / && \
     rm -rf /tmp/*
 
-ENTRYPOINT [ "/entrypoint" ]
+COPY entrypoint /entrypoint
+COPY check_certificate.sh /check_certificate.sh
+
+RUN chmod +x /entrypoint /check_certificate.sh
+
+ENTRYPOINT ["/bin/sh", "/entrypoint"]

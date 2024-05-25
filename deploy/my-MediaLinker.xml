@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>MediaLinker</Name>
-  <Repository>thsrite/medialinker:latest</Repository>
+  <Repository>thsrite/medialinker:alpine</Repository>
   <Registry>https://github.com/orgs/linuxserver/packages/container/package/nginx</Registry>
   <Network>bridge</Network>
   <MyIP/>
-  <Shell>bash</Shell>
+  <Shell>sh</Shell>
   <Privileged>false</Privileged>
   <Support>https://github.com/linuxserver/docker-nginx/issues/new/choose</Support>
   <Project>https://nginx.org/</Project>
-  <Overview>bpking1/embyExternalUrl docker&#x7248;&#x672C;</Overview>
+  <Overview>chen3861229/embyExternalUrl docker&#x7248;&#x672C;</Overview>
   <Category>Network:Web Network:Proxy</Category>
   <WebUI>http://[IP]:[PORT:8091]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/linuxserver/templates/master/unraid/nginx.xml</TemplateURL>
-  <Icon/>
+  <Icon>http://192.168.31.103:9768/images/icon/Nginx_D.png</Icon>
   <ExtraParams/>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled>1716461617</DateInstalled>
+  <DateInstalled>1716642117</DateInstalled>
   <DonateText>Donations</DonateText>
   <DonateLink>https://www.linuxserver.io/donate</DonateLink>
   <Requires/>
