@@ -12,22 +12,19 @@ ENV LANG="C.UTF-8" \
     AUTO_UPDATE="true" \
     SERVER="emby"
 
-# 安装git
-RUN apt-get update &&  \
-    apt-get install -y git wget cron && \
-    cd /tmp && \
-    wget https://github.com/go-acme/lego/releases/download/v3.7.0/lego_v3.7.0_linux_amd64.tar.gz && \
-    tar zxvf lego_v3.7.0_linux_amd64.tar.gz && \
-    chmod 755 lego && \
-    mv lego / && \
-    rm -rf *
-
-# 拉取代码
-RUN git clone $REPO_URL /embyExternalUrl
-
 COPY entrypoint /entrypoint
 COPY check_certificate.sh /check_certificate.sh
 
-RUN chmod +x /entrypoint /check_certificate.sh
+# 安装git
+RUN apt-get update &&  \
+    apt-get install -y git wget cron && \
+    mkdir -p /var/cache/nginx/emby/image && \
+    git clone $REPO_URL /embyExternalUrl && \
+    chmod +x /entrypoint /check_certificate.sh && \
+    wget -O /tmp/lego_v3.7.0_linux_amd64.tar.gz https://github.com/go-acme/lego/releases/download/v3.7.0/lego_v3.7.0_linux_amd64.tar.gz && \
+    tar zxvf /tmp/lego_v3.7.0_linux_amd64.tar.gz -C /tmp && \
+    chmod 755 /tmp/lego && \
+    mv /tmp/lego / && \
+    rm -rf /tmp/*
 
 ENTRYPOINT [ "/entrypoint" ]
