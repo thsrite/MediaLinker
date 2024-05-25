@@ -1,3 +1,23 @@
+[![Github][Github-image]][Github-url]
+[![commit activity][commit-activity-image]][commit-activity-url]
+[![docker version][docker-version-image]][docker-version-url]
+[![docker pulls][docker-pulls-image]][docker-pulls-url]
+[![docker stars][docker-stars-image]][docker-stars-url]
+[![docker image size][docker-image-size-image]][docker-image-size-url]
+
+[Github-image]: https://img.shields.io/static/v1?label=Github&message=MediaLinker&color=brightgreen
+[Github-url]: https://github.com/thsrite/MediaLinker
+[commit-activity-image]: https://img.shields.io/github/commit-activity/m/thsrite/MediaLinker
+[commit-activity-url]: https://github.com/thsrite/MediaLinker
+[docker-version-image]: https://img.shields.io/docker/v/thsrite/medialinker?style=flat
+[docker-version-url]: https://hub.docker.com/r/thsrite/medialinker/tags?page=1&ordering=last_updated
+[docker-pulls-image]: https://img.shields.io/docker/pulls/thsrite/medialinker?style=flat
+[docker-pulls-url]: https://hub.docker.com/r/thsrite/medialinker
+[docker-stars-image]: https://img.shields.io/docker/stars/thsrite/medialinker?style=flat
+[docker-stars-url]: https://hub.docker.com/r/thsrite/medialinker
+[docker-image-size-image]: https://img.shields.io/docker/image-size/thsrite/medialinker?style=flat
+[docker-image-size-url]: https://hub.docker.com/r/thsrite/medialinker
+
 原作者仓库：https://github.com/chen3861229/embyExternalUrl 
 
 本项目为大佬项目的docker版本，旨在简化部署方式、方便更新。
