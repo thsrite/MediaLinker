@@ -24,7 +24,8 @@ RUN apk --no-cache add nginx nginx-mod-http-js wget busybox git openssl && \
 
 COPY entrypoint /entrypoint
 COPY check_certificate.sh /check_certificate.sh
+COPY auto_start.sh /auto_start.sh
 
-RUN chmod +x /entrypoint /check_certificate.sh
+RUN chmod +x /entrypoint /check_certificate.sh /auto_start.sh
 
-ENTRYPOINT ["/bin/sh", "-c", "/entrypoint >> /opt/MediaLinker.log 2>&1"]
+ENTRYPOINT ["/bin/sh", "/auto_start.sh"]
