@@ -35,6 +35,19 @@ if [ "${SERVER}" = "plex" ] && [ ! -e "/etc/nginx/conf.d/plex.conf" ]; then
   ln -s /embyExternalUrl/plex2Alist/nginx/nginx.conf /etc/nginx/nginx.conf
 fi
 
+# 判断是否映射了配置文件
+if [ ! -e "/opt/constant.js" ]; then
+  echo "The configuration file is not mapped, creating a new one..."
+  if [ "${SERVER}" = "plex" ]; then
+    copy /embyExternalUrl/plex2Alist/nginx/conf.d/exampleConfig/constant-all.js /opt/constant.js
+  elif [ "${SERVER}" = "emby" ]; then
+    copy /embyExternalUrl/emby2Alist/nginx/conf.d/exampleConfig/constant-all.js /opt/constant.js
+  else
+    echo "The server is not specified, please specify the server name in the environment variable SERVER."
+    exit 1
+  fi
+fi
+
 # 软连接配置文件
 if [ ! -h "/etc/nginx/conf.d/constant.js" ]; then
   rm -rf /etc/nginx/conf.d/constant.js
