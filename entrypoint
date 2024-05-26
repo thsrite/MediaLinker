@@ -39,9 +39,9 @@ fi
 if [ ! -e "/opt/constant.js" ]; then
   echo "The configuration file is not mapped, creating a new one..."
   if [ "${SERVER}" = "plex" ]; then
-    copy /embyExternalUrl/plex2Alist/nginx/conf.d/exampleConfig/constant-all.js /opt/constant.js
+    cp /embyExternalUrl/plex2Alist/nginx/conf.d/exampleConfig/constant-all.js /opt/constant.js
   elif [ "${SERVER}" = "emby" ]; then
-    copy /embyExternalUrl/emby2Alist/nginx/conf.d/exampleConfig/constant-all.js /opt/constant.js
+    cp /embyExternalUrl/emby2Alist/nginx/conf.d/exampleConfig/constant-all.js /opt/constant.js
   else
     echo "The server is not specified, please specify the server name in the environment variable SERVER."
     exit 1
