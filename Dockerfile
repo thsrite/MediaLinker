@@ -27,4 +27,4 @@ COPY check_certificate.sh /check_certificate.sh
 
 RUN chmod +x /entrypoint /check_certificate.sh
 
-ENTRYPOINT ["/bin/sh", "/entrypoint"]
+ENTRYPOINT ["/bin/sh", "/entrypoint", ">> /opt/MediaLinker.log 2>&1"]
