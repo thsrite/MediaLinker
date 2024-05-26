@@ -3,7 +3,7 @@ services:
     medialinker:
         restart: always
         volumes:
-            - '/volume1/docker/medialinker/constant.js:/opt/constant.js'
+            - '/volume1/docker/medialinker/:/opt/'
         environment:
             - AUTO_UPDATE=false
             - SERVER=emby

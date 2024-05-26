@@ -25,6 +25,6 @@
   <Config Name="&#x670D;&#x52A1;&#x7AEF;&#xFF1A;emby/plex" Target="SERVER" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false">emby</Config>
   <Config Name="nginx&#x7AEF;&#x53E3;" Target="NGINX_PORT" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false">8091</Config>
   <Config Name="nginx ssl&#x7AEF;&#x53E3;" Target="NGINX_SSL_PORT" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false">8093</Config>
-  <Config Name="&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;" Target="/opt/constant.js" Default="" Mode="rw" Description="" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/MediaLinker/constant.js</Config>
+  <Config Name="&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;" Target="/opt/" Default="" Mode="rw" Description="" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/MediaLinker/</Config>
   <Config Name="Host Port 1" Target="8091" Default="" Mode="tcp" Description="" Type="Port" Display="always" Required="false" Mask="false">8091</Config>
 </Container>
