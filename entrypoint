@@ -63,11 +63,11 @@ if ! grep -q "access_log /dev/stdout main;" /etc/nginx/nginx.conf; then
 fi
 
 # nginx日志写入/opt/nginx.log
-if ! grep -q "error_log /opt/nginx.log info;" /etc/nginx/nginx.conf; then
-  sed -i 's#error_log /var/log/nginx/error.log notice;#error_log /opt/nginx.log info;#' /etc/nginx/nginx.conf
+if ! grep -q "error_log  /opt/nginx.log info;" /etc/nginx/nginx.conf; then
+  sed -i 's#error_log  /var/log/nginx/error.log notice;#error_log  /opt/nginx.log info;#' /etc/nginx/nginx.conf
 fi
-if ! grep -q "access_log /opt/nginx.log main;" /etc/nginx/nginx.conf; then
-  sed -i 's#access_log /var/log/nginx/access.log  main;#access_log /opt/nginx.log main;#' /etc/nginx/nginx.conf
+if ! grep -q "access_log  /opt/nginx.log main;" /etc/nginx/nginx.conf; then
+  sed -i 's#access_log  /var/log/nginx/access.log  main;#access_log  /opt/nginx.log main;#' /etc/nginx/nginx.conf
 fi
 
 # 替换http、https端口
