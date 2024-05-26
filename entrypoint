@@ -55,12 +55,16 @@ if [ "${SSL_ENABLE}" = "true" ]; then
   sed -i 's/#.*include \/etc\/nginx\/conf.d\/includes\/https.conf;/include \/etc\/nginx\/conf.d\/includes\/https.conf;/' /etc/nginx/conf.d/*.conf
 
   # SSL_DOMAIN、SSL变量替换
-  /bin/sh /check_certificate.sh
+  cd / && /bin/sh /check_certificate.sh
+  if [ $? -ne 0 ]; then
+    echo "SSL模式下证书校验失败，退出程序"
+    exit 1
+  fi
 
   # 清空定时任务
   crontab -d
   # 将新的定时任务写入crontab
-  echo "${SSL_CRON} ./check_certificate.sh" | crontab -
+  echo "${SSL_CRON} cd / && /bin/sh /check_certificate.sh" | crontab -
   # 重启cron服务使修改生效
   pkill -f crond
   /usr/sbin/crond

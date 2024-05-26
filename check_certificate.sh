@@ -6,18 +6,25 @@ check_certificate() {
   /bin/sh /opt/ssl
 
   # 检查证书是否被 Let's Encrypt 成功签发
-  if ls /opt/.lego/certificates | grep "${SSL_DOMAIN}"; then
-      if [ -e /opt/.lego/certificates/"${SSL_DOMAIN}".crt ] && [ -e /opt/.lego/certificates/"${SSL_DOMAIN}".key ]; then
+  if ls /.lego/certificates | grep "${SSL_DOMAIN}"; then
+      if [ -e /.lego/certificates/"${SSL_DOMAIN}".crt ] && [ -e /.lego/certificates/"${SSL_DOMAIN}".key ]; then
           echo '证书签发成功，服务正在重启'
           # 删除原证书
           rm -rf /opt/fullchain.pem /opt/privkey.key
           # 将证书复制到特定目录
-          cp /opt/.lego/certificates/"${SSL_DOMAIN}".crt /opt/fullchain.pem
-          cp /opt/.lego/certificates/"${SSL_DOMAIN}".key /opt/privkey.key
+          cp /.lego/certificates/"${SSL_DOMAIN}".crt /opt/fullchain.pem
+          cp /.lego/certificates/"${SSL_DOMAIN}".key /opt/privkey.key
           # 软连接证书到 nginx 配置目录
           mkdir -p /etc/nginx/conf.d/cert/
           ln -s /opt/fullchain.pem /etc/nginx/conf.d/cert/fullchain.pem
           ln -s /opt/privkey.key /etc/nginx/conf.d/cert/privkey.key
+
+          # 判断nginx是否正在运行，如果正在运行重启 nginx
+          if pgrep nginx >/dev/null; then
+              echo "Nginx is running, reloading..."
+              nginx -s reload
+              echo 'Nginx reloading success'
+          fi
       else
           echo '证书文件不存在，证书签发失败'
           exit 1
@@ -47,10 +54,12 @@ if [ "${SSL_ENABLE}" = "true" ]; then
           if [ $days_until_expiry -le 30 ]; then
               echo "证书将在 $days_until_expiry 天内到期，执行证书申请脚本"
               check_certificate
-              # 重启 nginx
-              nginx -s reload
           else
               echo "证书还在有效期, 无需更新"
+              # 判断nginx证书是否正确配置
+              if [ -e /etc/nginx/conf.d/cert/fullchain.pem ] && [ -e /etc/nginx/conf.d/cert/privkey.key ]; then
+                  echo "证书配置正确"
+              fi
           fi
       else
           echo "开始申请域名证书"
