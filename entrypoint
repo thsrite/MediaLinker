@@ -35,7 +35,7 @@ if [ "${SERVER}" = "plex" ] && [ ! -e "/etc/nginx/conf.d/plex.conf" ]; then
   ln -s /embyExternalUrl/plex2Alist/nginx/nginx.conf /etc/nginx/nginx.conf
 fi
 
-# 判断是否映射了配置文件
+# 判断是否存在配置文件，不存在则创建
 if [ ! -e "/opt/constant.js" ]; then
   echo "The configuration file is not mapped, creating a new one..."
   if [ "${SERVER}" = "plex" ]; then
@@ -60,6 +60,14 @@ if ! grep -q "error_log /dev/stdout info;" /etc/nginx/nginx.conf; then
 fi
 if ! grep -q "access_log /dev/stdout main;" /etc/nginx/nginx.conf; then
   sed -i '/sendfile\s*on;/i\    access_log /dev/stdout main;' /etc/nginx/nginx.conf
+fi
+
+# nginx日志写入/opt/nginx.log
+if ! grep -q "error_log /opt/nginx.log info;" /etc/nginx/nginx.conf; then
+  sed -i 's#error_log /var/log/nginx/error.log notice;#error_log /opt/nginx.log info;#' /etc/nginx/nginx.conf
+fi
+if ! grep -q "access_log /opt/nginx.log main;" /etc/nginx/nginx.conf; then
+  sed -i 's#access_log /var/log/nginx/access.log  main;#access_log /opt/nginx.log main;#' /etc/nginx/nginx.conf
 fi
 
 # 替换http、https端口
