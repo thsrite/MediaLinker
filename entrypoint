@@ -5,7 +5,9 @@
 
 # 自动更新
 if [[ "${AUTO_UPDATE}" = "true" ]];then
+  echo "The automatic update is detected, and the main program is being updated...."
   cd /embyExternalUrl && git pull
+  echo "The main program update is complete."
 fi
 
 # 软链接ngx_http_js_module.so
@@ -15,6 +17,7 @@ fi
 
 # emby 不存在emby.conf文件，则创建软链接，存在则说明以前已经创建过软链接或者挂载该目录，无需处理
 if [ "${SERVER}" = "emby" ] && [ ! -e "/etc/nginx/conf.d/emby.conf" ]; then
+  echo "The emby service is detected, and the configuration file is being linked...."
   # 删除原有配置文件
   rm -rf /etc/nginx/conf.d /etc/nginx/nginx.conf
   # 根据服务获取不同的配置文件
@@ -24,6 +27,7 @@ fi
 
 # plex 不存在plex.conf文件，则创建软链接，存在则说明以前已经创建过软链接或者挂载该目录，无需处理
 if [ "${SERVER}" = "plex" ] && [ ! -e "/etc/nginx/conf.d/plex.conf" ]; then
+  echo "The plex service is detected, and the configuration file is being linked...."
   # 删除原有配置文件
   rm -rf /etc/nginx/conf.d /etc/nginx/nginx.conf
   # 根据服务获取不同的配置文件
@@ -45,19 +49,21 @@ if ! grep -q "access_log /dev/stdout main;" /etc/nginx/nginx.conf; then
   sed -i '/sendfile\s*on;/i\    access_log /dev/stdout main;' /etc/nginx/nginx.conf
 fi
 
-
 # 替换http、https端口
 sed -i "s/8091/${NGINX_PORT}/g" "/etc/nginx/conf.d/includes/http.conf"
 sed -i "s/8095/${NGINX_SSL_PORT}/g" "/etc/nginx/conf.d/includes/https.conf"
 
 # SSL开启
 if [ "${SSL_ENABLE}" = "true" ]; then
-  sed -i 's/#.*include \/etc\/nginx\/conf.d\/includes\/https.conf;/include \/etc\/nginx\/conf.d\/includes\/https.conf;/' /etc/nginx/conf.d/*.conf
+  if grep -q "^#.*include \/etc\/nginx\/conf.d\/includes\/https\.conf;" /etc/nginx/conf.d/*.conf; then
+      sed -i 's/#.*include \/etc\/nginx\/conf.d\/includes\/https.conf;/include \/etc\/nginx\/conf.d\/includes\/https.conf;/' /etc/nginx/conf.d/*.conf
+      echo "SSL is enabled, the https.conf file has been included."
+  fi
 
   # SSL_DOMAIN、SSL变量替换
   cd / && /bin/sh /check_certificate.sh
   if [ $? -ne 0 ]; then
-    echo "SSL模式下证书校验失败，退出程序"
+    echo "In SSL mode, certificate verification failed, exiting the program."
     exit 1
   fi
 
@@ -68,11 +74,12 @@ if [ "${SSL_ENABLE}" = "true" ]; then
   # 重启cron服务使修改生效
   pkill -f crond
   /usr/sbin/crond
+  echo "The scheduled task '${SSL_CRON} cd / && /bin/sh /check_certificate.sh' has been written."
 else
   if ! grep -q "^#.*include \/etc\/nginx\/conf.d\/includes\/https\.conf;" /etc/nginx/conf.d/*.conf; then
     sed -i 's/include \/etc\/nginx\/conf.d\/includes\/https\.conf;/#&/g' /etc/nginx/conf.d/*.conf
+    echo "SSL is disabled, the https.conf file has been commented out."
   fi
-
 fi
 
 # 后台启动nginx
