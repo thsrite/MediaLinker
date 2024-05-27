@@ -63,7 +63,9 @@ fi
 
 # 替换http、https端口
 sed -i "s/8091/${NGINX_PORT}/g" "/etc/nginx/conf.d/includes/http.conf"
-sed -i "s/8095/${NGINX_SSL_PORT}/g" "/etc/nginx/conf.d/includes/https.conf"
+if [ -n "${NGINX_SSL_PORT}" ]; then
+  sed -i "s/8095/${NGINX_SSL_PORT}/g" "/etc/nginx/conf.d/includes/https.conf"
+fi
 
 # SSL开启
 if [ "${SSL_ENABLE}" = "true" ]; then
