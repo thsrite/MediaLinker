@@ -13,19 +13,20 @@ ENV LANG="C.UTF-8" \
     SERVER="emby"
 
 # 安装git
-RUN apk --no-cache add nginx nginx-mod-http-js wget busybox git openssl && \
+RUN apk --no-cache add nginx nginx-mod-http-js curl busybox git openssl && \
     mkdir -p /var/cache/nginx/emby/image /opt && \
     git clone $REPO_URL /embyExternalUrl && \
-    wget -O /tmp/lego_v3.7.0_linux_amd64.tar.gz https://github.com/go-acme/lego/releases/download/v3.7.0/lego_v3.7.0_linux_amd64.tar.gz && \
-    tar zxvf /tmp/lego_v3.7.0_linux_amd64.tar.gz -C /tmp && \
+    latest_version=$(curl -s https://api.github.com/repos/go-acme/lego/releases/latest | grep tag_name | cut -d '"' -f 4) && \
+    curl -L -o /tmp/lego_latest.tar.gz "https://github.com/go-acme/lego/releases/download/${latest_version}/lego_${latest_version}_linux_amd64.tar.gz" && \
+    tar zxvf /tmp/lego_latest.tar.gz -C /tmp && \
     chmod 755 /tmp/lego && \
     mv /tmp/lego / && \
     rm -rf /tmp/*
 
 COPY entrypoint /entrypoint
-COPY check_certificate.sh /check_certificate.sh
-COPY auto_start.sh /auto_start.sh
+COPY start_server /start_server
+COPY check_certificate /check_certificate
 
-RUN chmod +x /entrypoint /check_certificate.sh /auto_start.sh
+RUN chmod +x /entrypoint /start_server /check_certificate
 
-ENTRYPOINT ["/bin/sh", "/auto_start.sh"]
+ENTRYPOINT ["/bin/sh", "/entrypoint"]
