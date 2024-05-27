@@ -68,10 +68,12 @@ sed -i "s/8095/${NGINX_SSL_PORT}/g" "/etc/nginx/conf.d/includes/https.conf"
 
 # SSL开启
 if [ "${SSL_ENABLE}" = "true" ]; then
-  if grep -q "^#.*include \/etc\/nginx\/conf.d\/includes\/https\.conf;" /etc/nginx/conf.d/*.conf; then
-      sed -i 's/#.*include \/etc\/nginx\/conf.d\/includes\/https.conf;/include \/etc\/nginx\/conf.d\/includes\/https.conf;/' /etc/nginx/conf.d/*.conf
-      echo "SSL is enabled, the https.conf file has been included."
-  fi
+  sed -i '/#include \/etc\/nginx\/conf.d\/includes\/https\.conf;/ {
+      s/^#//;
+      a\include \/etc\/nginx\/conf.d\/includes\/https.conf;
+      d
+  }' /etc/nginx/conf.d/*.conf
+  echo "SSL is enabled, the https.conf file has been included."
 
   # SSL_DOMAIN、SSL变量替换
   cd / && /bin/sh /check_certificate.sh
@@ -89,10 +91,12 @@ if [ "${SSL_ENABLE}" = "true" ]; then
   /usr/sbin/crond
   echo "The scheduled task '${SSL_CRON} cd / && /bin/sh /check_certificate.sh' has been written."
 else
-  if ! grep -q "^#.*include \/etc\/nginx\/conf.d\/includes\/https\.conf;" /etc/nginx/conf.d/*.conf; then
-    sed -i 's/include \/etc\/nginx\/conf.d\/includes\/https\.conf;/#&/g' /etc/nginx/conf.d/*.conf
+    sed -i '/include \/etc\/nginx\/conf.d\/includes\/https\.conf;/ {
+        s/.*//;
+        a\#include \/etc\/nginx\/conf.d\/includes\/https.conf;
+        d
+    }' /etc/nginx/conf.d/*.conf
     echo "SSL is disabled, the https.conf file has been commented out."
-  fi
 fi
 
 # 后台启动nginx

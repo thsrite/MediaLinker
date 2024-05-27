@@ -21,9 +21,9 @@ check_certificate() {
 
           # 判断nginx是否正在运行，如果正在运行重启 nginx
           if pgrep nginx >/dev/null; then
-              echo "Nginx is running, reloading..."
+              echo "Nginx service is running, reloading..."
               nginx -s reload
-              echo 'Nginx reloading success'
+              echo 'Nginx service reload success'
           fi
       else
           echo 'The certificate file does not exist, and the certificate issuance has failed.'
