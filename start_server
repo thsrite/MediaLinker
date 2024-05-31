@@ -14,24 +14,24 @@ if [ ! -e "/etc/nginx/modules/ngx_http_js_module.so" ]; then
   ln -s /usr/lib/nginx/modules/ngx_http_js_module.so /etc/nginx/modules/ngx_http_js_module.so
 fi
 
-# emby 不存在emby.conf文件，则创建软链接，存在则说明以前已经创建过软链接或者挂载该目录，无需处理
-if [ "${SERVER}" = "emby" ] && [ ! -e "/etc/nginx/conf.d/emby.conf" ]; then
+# emby
+if [ "${SERVER}" = "emby" ]; then
   echo "The emby service is detected, and the configuration file is being linked...."
   # 删除原有配置文件
   rm -rf /etc/nginx/conf.d /etc/nginx/nginx.conf
   # 根据服务获取不同的配置文件
-  ln -s /embyExternalUrl/emby2Alist/nginx/conf.d /etc/nginx/conf.d
-  ln -s /embyExternalUrl/emby2Alist/nginx/nginx.conf /etc/nginx/nginx.conf
+  cp -rf /embyExternalUrl/emby2Alist/nginx/conf.d /etc/nginx/conf.d
+  cp -rf /embyExternalUrl/emby2Alist/nginx/nginx.conf /etc/nginx/nginx.conf
 fi
 
-# plex 不存在plex.conf文件，则创建软链接，存在则说明以前已经创建过软链接或者挂载该目录，无需处理
-if [ "${SERVER}" = "plex" ] && [ ! -e "/etc/nginx/conf.d/plex.conf" ]; then
+# plex
+if [ "${SERVER}" = "plex" ]; then
   echo "The plex service is detected, and the configuration file is being linked...."
   # 删除原有配置文件
   rm -rf /etc/nginx/conf.d /etc/nginx/nginx.conf
   # 根据服务获取不同的配置文件
-  ln -s /embyExternalUrl/plex2Alist/nginx/conf.d /etc/nginx/conf.d
-  ln -s /embyExternalUrl/plex2Alist/nginx/nginx.conf /etc/nginx/nginx.conf
+  cp -rf /embyExternalUrl/plex2Alist/nginx/conf.d /etc/nginx/conf.d
+  cp -rf /embyExternalUrl/plex2Alist/nginx/nginx.conf /etc/nginx/nginx.conf
 fi
 
 # 判断是否存在配置文件，不存在则创建
