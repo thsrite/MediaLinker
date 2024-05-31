@@ -39,6 +39,6 @@ jobs:
 
       - name: MediaLinker-Plex
         run: |
-          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/medialinker:plex -f Dockerfile-flex . --push
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/medialinker:plex -f Dockerfile-plex . --push
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
