@@ -61,3 +61,4 @@
 
 - 如开启自动更新，且本地访问github困难，可能会导致更新失败，建议配置`HTTPS_PROXY`环境变量
 - 本容器日志会存储到/opt/MediaLinker.log，请注意日志大小，定期清理
+- 应某火柴要求，docker分为三个tag：latest为整合版本，默认SERVER=emby可随时切换emby|plex；emby默认SERVER=emby；plex默认SERVER=plex
