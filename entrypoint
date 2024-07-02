@@ -1,2 +1,10 @@
 #!/bin/bash
+
+# 启动 logrotate 并定时运行
+while true; do
+    /usr/sbin/logrotate /etc/logrotate.d/medialinker
+    sleep 60
+done &
+
+# 启动 MediaLinker 服务
 /bin/sh /start_server 2>&1 | tee -a /opt/MediaLinker.log
