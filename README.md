@@ -25,20 +25,21 @@
 非容器运行问题请去原作者仓库提issue，请给原作者大佬点赞！
 
 ### 环境配置
-| 参数            | 是否必填    | 说明                                                                                               |
-|---------------|:--------|--------------------------------------------------------------------------------------------------|
-| AUTO_UPDATE   | 可选      | 重启自动更新，true/false，默认`false`                                                                      |
-| SERVER        | 可选      | 服务端，emby/plex，默认`emby`                                                                           |
-| NGINX_PORT    | 可选      | nginx端口，默认`8091`                                                                                 |
-| NGINX_SSL_PORT | 可选      | nginx ssl端口，默认`8095`                                                                             |
-| REPO_URL      | 可选      | 仓库地址，默认`https://github.com/chen3861229/embyExternalUrl`                                          |
-| SSL_ENABLE    | 可选      | 是否开启ssl，true/false，默认`false`                                                                     |
-| SSL_CRON      | 可选      | ssl证书更新时间，默认每2小时执行一次                                                                             |
-| SSL_DOMAIN    | 可选      | 域名，开启SSL的时候必填                                                                                    |
-| 证书路径        | 开启SSL必填 | 映射到宿主机/opt/fullchain.pem                                                                         |
-| 证书路径        | 开启SSL必填 | 映射到宿主机/opt/privkey.pem                                                                           |
-| 证书申请命令     | 开启SSL必填 | 映射到宿主机/opt/ssl [ssl示例](config%2Fssl)                                                             |
-| 配置文件        | `必填`    | 映射到宿主机/opt/constant.js [emby示例](config%2Femby%2Fconstant.js) [plex示例](config%2Fplex%2Fconstant.js) |
+| 参数              | 是否必填                     | 说明                                                                                                 |
+|-----------------|:-------------------------|----------------------------------------------------------------------------------------------------|
+| AUTO_UPDATE     | 可选                       | 重启自动更新，true/false，默认`false`                                                                        |
+| SERVER          | 可选                       | 服务端，emby/plex，默认`emby`                                                                             |
+| NGINX_PORT      | 可选                       | nginx端口，默认`8091`                                                                                   |
+| NGINX_SSL_PORT  | 可选                       | nginx ssl端口，默认`8095`                                                                               |
+| REPO_URL        | 可选                       | 仓库地址，默认`https://github.com/chen3861229/embyExternalUrl`                                            |
+| SSL_ENABLE      | 可选                       | 是否开启ssl，true/false，默认`false`                                                                       |
+| SSL_CRON        | 可选                       | ssl证书更新时间，默认每2小时执行一次                                                                               |
+| SSL_DOMAIN      | 可选                       | 域名，开启SSL的时候必填                                                                                      |
+| GIT_COMMIT_HASH | 可选（AUTO_UPDATE=false时生效） | 拉取指定commit运行                                                                                       |
+| 证书路径            | 开启SSL必填                  | 映射到宿主机/opt/fullchain.pem                                                                           |
+| 证书路径            | 开启SSL必填                  | 映射到宿主机/opt/privkey.pem                                                                             |
+| 证书申请命令          | 开启SSL必填                  | 映射到宿主机/opt/ssl [ssl示例](config%2Fssl)                                                               |
+| 配置文件            | `必填`                     | 映射到宿主机/opt/constant.js [emby示例](config%2Femby%2Fconstant.js) [plex示例](config%2Fplex%2Fconstant.js) |
 
 ### 部署方式
 
