@@ -7,6 +7,14 @@ if [[ "${AUTO_UPDATE}" = "true" ]];then
   echo "The automatic update is detected, and the main program is being updated...."
   cd /embyExternalUrl && git pull
   echo "The main program update is complete."
+else
+  if [[ -z "${GIT_COMMIT_HASH}" ]];then
+    echo "The GIT_COMMIT_HASH environment variable is not set, will not update the main program."
+  else
+    echo "The GIT_COMMIT_HASH environment variable is set, the main program is being updated to the specified commit hash ${GIT_COMMIT_HASH}..."
+    git checkout ${GIT_COMMIT_HASH}
+    echo "The main program checkout is complete."
+  fi
 fi
 
 # 软链接ngx_http_js_module.so
