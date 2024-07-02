@@ -12,7 +12,7 @@ else
     echo "The GIT_COMMIT_HASH environment variable is not set, will not update the main program."
   else
     echo "The GIT_COMMIT_HASH environment variable is set, the main program is being updated to the specified commit hash ${GIT_COMMIT_HASH}..."
-    git checkout ${GIT_COMMIT_HASH}
+    cd /embyExternalUrl && git checkout ${GIT_COMMIT_HASH}
     echo "The main program checkout is complete."
   fi
 fi
