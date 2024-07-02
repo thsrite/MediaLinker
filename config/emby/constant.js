@@ -12,7 +12,7 @@ const embyHost = "http://172.17.0.1:8096";
 // 挂载工具 rclone/CD2 多出来的挂载目录, 例如将 od,gd 挂载到 /mnt 目录下: /mnt/onedrive /mnt/gd ,那么这里就填写 /mnt
 // 通常配置一个远程挂载根路径就够了,默认非此路径开头文件将转给原始 emby 处理,不用重复填写至 disableRedirectRule
 // 如果没有挂载,全部使用 strm 文件,此项填[""],必须要是数组
-const embyMountPath = ["/mnt"];
+const mediaMountPath = ["/mnt"];
 
 // emby/jellyfin api key, 在 emby/jellyfin 后台设置
 const embyApiKey = "f839390f50a648fd92108bc11ca6730a";
@@ -52,7 +52,7 @@ const routeCacheConfig = {
   keyExpression: "r.uri:r.args.MediaSourceId", // "r.uri:r.args.MediaSourceId:r.args.X-Emby-Device-Id"
 };
 
-// 指定需要获取符号链接真实路径的规则,优先级在 embyMountPath 和 routeRule 之间
+// 指定需要获取符号链接真实路径的规则,优先级在 mediaMountPath 和 routeRule 之间
 // 注意前提条件是此程序或容器必须挂载或具有对应目录的读取权限,否则将跳过处理,不生效
 // 参数1: 0: startsWith(str), 1: endsWith(str), 2: includes(str), 3: match(/ain/g)
 // 参数2: 匹配目标,对象为媒体服务入库的文件路径(Item.Path)
@@ -98,7 +98,7 @@ const routeRule = [
 // 参数1: 0: 默认做字符串替换, 1: 前插, 2: 尾插
 // 参数2: 0: 默认只处理/开头的路径且不为 strm, 1: 只处理 strm 内部为/开头的相对路径, 2: 只处理 strm 内部为远程链接的
 // 参数3: 来源, 参数4: 目标
-const embyPathMapping = [
+const mediaPathMapping = [
   // [0, 0, "/mnt/aliyun-01", "/mnt/aliyun-02"],
   // [0, 2, "http:", "https:"],
   // [0, 2, ":5244", "/alist"],
@@ -216,7 +216,7 @@ function getImageCachePolicy(r) {
 
 export default {
   embyHost,
-  embyMountPath,
+  mediaMountPath,
   embyApiKey,
   alistAddr,
   alistToken,
@@ -227,7 +227,7 @@ export default {
   routeCacheConfig,
   symlinkRule,
   routeRule,
-  embyPathMapping,
+  mediaPathMapping,
   redirectStrmLastLinkRule,
   cilentSelfAlistRule,
   transcodeConfig,
