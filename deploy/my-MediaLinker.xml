@@ -13,7 +13,7 @@
   <Category>Network:Web Network:Proxy</Category>
   <WebUI>http://[IP]:[PORT:8091]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/linuxserver/templates/master/unraid/nginx.xml</TemplateURL>
-  <Icon>http://192.168.31.103:9768/images/icon/Nginx_D.png</Icon>
+  <Icon>https://mirror.ghproxy.com/https://raw.githubusercontent.com/thsrite/MoviePilot-Plugins-Official/main/icons/Nginx_D.png</Icon>
   <ExtraParams/>
   <PostArgs/>
   <CPUset/>
