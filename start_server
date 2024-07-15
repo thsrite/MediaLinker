@@ -4,6 +4,15 @@
 # shellcheck disable=SC2154
 # 自动更新
 if [[ "${AUTO_UPDATE}" = "true" ]];then
+  # 更新配置文件
+  if [ -e "/opt/constant.js" ]; then
+    if [ "${SERVER}" = "plex" ]; then
+      cp -f /opt/constant.js /embyExternalUrl/plex2Alist/nginx/conf.d/exampleConfig/constant-all.js
+    elif [ "${SERVER}" = "emby" ]; then
+      cp -f /opt/constant.js /embyExternalUrl/emby2Alist/nginx/conf.d/exampleConfig/constant-all.js
+    fi
+  fi
+
   echo "The automatic update is detected, and the main program is being updated...."
   cd /embyExternalUrl && git pull
   echo "The main program update is complete."
