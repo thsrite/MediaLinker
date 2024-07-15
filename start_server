@@ -16,6 +16,15 @@ if [[ "${AUTO_UPDATE}" = "true" ]];then
   echo "The automatic update is detected, and the main program is being updated...."
   cd /embyExternalUrl && git pull
   echo "The main program update is complete."
+
+  # 备份原有配置
+  cp -f /opt/constant.js /opt/constant.js.bak
+  # 配置文件覆盖回源文件
+  if [ "${SERVER}" = "plex" ]; then
+     cp -f /embyExternalUrl/plex2Alist/nginx/conf.d/exampleConfig/constant-all.js /opt/constant.js
+  elif [ "${SERVER}" = "emby" ]; then
+     cp -f /embyExternalUrl/emby2Alist/nginx/conf.d/exampleConfig/constant-all.js /opt/constant.js
+  fi
 else
   if [[ -z "${GIT_COMMIT_HASH}" ]];then
     echo "The GIT_COMMIT_HASH environment variable is not set, will not update the main program."
