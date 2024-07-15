@@ -5,6 +5,8 @@
 [![docker stars][docker-stars-image]][docker-stars-url]
 [![docker image size][docker-image-size-image]][docker-image-size-url]
 
+# 传播的越广，死的越快的道理，望周知。
+
 [Github-image]: https://img.shields.io/static/v1?label=Github&message=MediaLinker&color=brightgreen
 [Github-url]: https://github.com/thsrite/MediaLinker
 [commit-activity-image]: https://img.shields.io/github/commit-activity/m/thsrite/MediaLinker
