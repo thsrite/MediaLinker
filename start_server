@@ -14,7 +14,7 @@ if [[ "${AUTO_UPDATE}" = "true" ]];then
   fi
 
   echo "The automatic update is detected, and the main program is being updated...."
-  cd /embyExternalUrl && git pull
+  cd /embyExternalUrl && git pull origin main
   echo "The main program update is complete."
 
   # 备份原有配置
