@@ -3,7 +3,7 @@
 # 启动 logrotate 并定时运行
 while true; do
     /usr/sbin/logrotate /etc/logrotate.d/medialinker
-    sleep 60
+    sleep 300
 done &
 
 # 启动 MediaLinker 服务
