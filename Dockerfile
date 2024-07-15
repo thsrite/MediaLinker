@@ -15,7 +15,7 @@ ENV LANG="C.UTF-8" \
 # 安装git
 RUN apk --no-cache add nginx nginx-mod-http-js curl busybox git openssl logrotate && \
     mkdir -p /var/cache/nginx/emby/image /opt && \
-    git clone $REPO_URL /embyExternalUrl && cd /embyExternalUrl && git checkout 372decc7 && \
+    git clone $REPO_URL /embyExternalUrl && cd /embyExternalUrl && git checkout 5fefd4e9 && \
     curl -L -o /tmp/lego_latest.tar.gz "https://github.com/go-acme/lego/releases/download/v3.7.0/lego_v3.7.0_linux_amd64.tar.gz" && \
     tar zxvf /tmp/lego_latest.tar.gz -C /tmp && \
     chmod 755 /tmp/lego && \
