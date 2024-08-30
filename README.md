@@ -38,7 +38,7 @@
 | SSL_CRON        | 可选                       | ssl证书更新时间，默认每2小时执行一次                                                                               |
 | SSL_DOMAIN      | 可选                       | 域名，开启SSL的时候必填                                                                                      |
 | GIT_COMMIT_HASH | 可选（AUTO_UPDATE=false时生效） | 拉取指定commit运行                                                                                       |
-| NGINX_LOG_LEVEL | 可选                       | Nginx控制台日志级别，error/access/all或者空                                                                   |
+| NGINX_LOG_LEVEL | 可选                       | Nginx控制台日志级别，error/access/all或者空（空为默认，等同于all）                                                      |
 | 证书路径            | 开启SSL必填                  | 映射到宿主机/opt/fullchain.pem                                                                           |
 | 证书路径            | 开启SSL必填                  | 映射到宿主机/opt/privkey.pem                                                                             |
 | 证书申请命令          | 开启SSL必填                  | 映射到宿主机/opt/ssl [ssl示例](config%2Fssl)                                                               |
