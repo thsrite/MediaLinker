@@ -62,11 +62,30 @@ if [ ! -h "/etc/nginx/conf.d/constant.js" ]; then
 fi
 
 # nginx日志输出到stdout
-if ! grep -q "error_log /dev/stdout info;" /etc/nginx/nginx.conf; then
-  sed -i '/pid\s*\/var\/run\/nginx.pid;/i error_log /dev/stdout info;' /etc/nginx/nginx.conf
-fi
-if ! grep -q "access_log /dev/stdout main;" /etc/nginx/nginx.conf; then
-  sed -i '/sendfile\s*on;/i\    access_log /dev/stdout main;' /etc/nginx/nginx.conf
+if [[ -z "${NGINX_LOG_LEVEL}" ]]; then
+  if ! grep -q "error_log /dev/stdout info;" /etc/nginx/nginx.conf; then
+    sed -i '/pid\s*\/var\/run\/nginx.pid;/i error_log /dev/stdout info;' /etc/nginx/nginx.conf
+  fi
+  if ! grep -q "access_log /dev/stdout main;" /etc/nginx/nginx.conf; then
+    sed -i '/sendfile\s*on;/i\    access_log /dev/stdout main;' /etc/nginx/nginx.conf
+  fi
+else
+  if [[ "${NGINX_LOG_LEVEL}" == "error" ]]; then
+    if ! grep -q "error_log /dev/stdout info;" /etc/nginx/nginx.conf; then
+      sed -i '/pid\s*\/var\/run\/nginx.pid;/i error_log /dev/stdout info;' /etc/nginx/nginx.conf
+    fi
+  elif [[ "${NGINX_LOG_LEVEL}" == "access" ]]; then
+    if ! grep -q "access_log /dev/stdout main;" /etc/nginx/nginx.conf; then
+      sed -i '/sendfile\s*on;/i\    access_log /dev/stdout main;' /etc/nginx/nginx.conf
+    fi
+  elif [[ "${NGINX_LOG_LEVEL}" == "all" ]]; then
+    if ! grep -q "error_log /dev/stdout info;" /etc/nginx/nginx.conf; then
+      sed -i '/pid\s*\/var\/run\/nginx.pid;/i error_log /dev/stdout info;' /etc/nginx/nginx.conf
+    fi
+    if ! grep -q "access_log /dev/stdout main;" /etc/nginx/nginx.conf; then
+      sed -i '/sendfile\s*on;/i\    access_log /dev/stdout main;' /etc/nginx/nginx.conf
+    fi
+  fi
 fi
 
 # 替换http、https端口

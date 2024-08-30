@@ -38,6 +38,7 @@
 | SSL_CRON        | 可选                       | ssl证书更新时间，默认每2小时执行一次                                                                               |
 | SSL_DOMAIN      | 可选                       | 域名，开启SSL的时候必填                                                                                      |
 | GIT_COMMIT_HASH | 可选（AUTO_UPDATE=false时生效） | 拉取指定commit运行                                                                                       |
+| NGINX_LOG_LEVEL | 可选                       | Nginx控制台日志级别，error/access/all或者空                                                                   |
 | 证书路径            | 开启SSL必填                  | 映射到宿主机/opt/fullchain.pem                                                                           |
 | 证书路径            | 开启SSL必填                  | 映射到宿主机/opt/privkey.pem                                                                             |
 | 证书申请命令          | 开启SSL必填                  | 映射到宿主机/opt/ssl [ssl示例](config%2Fssl)                                                               |
@@ -63,5 +64,6 @@
 ### 注意事项
 
 - 如开启自动更新，且本地访问github困难，可能会导致更新失败，建议配置`HTTPS_PROXY`环境变量
-- 本容器日志会存储到/opt/MediaLinker.log，请注意日志大小，定期清理
-- 应某火柴要求，docker分为三个tag：latest为整合版本，默认SERVER=emby可随时切换emby/plex；emby默认SERVER=emby；plex默认SERVER=plex
+- 本容器日志会存储到/opt/MediaLinker.log，已配置logrotate保留3份日志，每份5M，可自行调整`/etc/logrotate.d/medialinker`
+- 应某火柴要求，docker分为三个tag：latest为整合版本，默认SERVER=emby可随时切换emby/plex；emby默认SERVER=emby；plex默认SERVER=plex（亦可互相切换）
+- 如自动更新后发现最新代码有问题，可配置`GIT_COMMIT_HASH`环境变量拉取指定commit运行
