@@ -13,9 +13,12 @@ ENV LANG="C.UTF-8" \
     SERVER="emby"
 
 # 安装git
-RUN apk --no-cache add nginx nginx-mod-http-js curl busybox git openssl logrotate && \
+RUN apk --no-cache add nginx nginx-mod-http-js curl busybox git openssl logrotate tzdata && \
     mkdir -p /var/cache/nginx/emby/image /opt && \
     git clone $REPO_URL /embyExternalUrl && \
+    cp /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo "$TZ" > /etc/timezone && \
+    apk del tzdata && \
     curl -L -o /tmp/lego_latest.tar.gz "https://github.com/go-acme/lego/releases/download/v3.7.0/lego_v3.7.0_linux_amd64.tar.gz" && \
     tar zxvf /tmp/lego_latest.tar.gz -C /tmp && \
     chmod 755 /tmp/lego && \
