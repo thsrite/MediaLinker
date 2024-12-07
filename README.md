@@ -65,4 +65,4 @@
 - 本容器日志会存储到/opt/MediaLinker.log，已配置logrotate保留3份日志，每份5M，可自行调整`/etc/logrotate.d/medialinker`
 - 应某火柴要求，docker分为三个tag：latest为整合版本，默认SERVER=emby可随时切换emby/plex；emby默认SERVER=emby；plex默认SERVER=plex（亦可互相切换）
 - 如自动更新后发现最新代码有问题，可配置`GIT_COMMIT_HASH`环境变量拉取指定commit运行
-# 如开启自动更新，请自行获取[最新配置文件](https://github.com/chen3861229/embyExternalUrl/blob/main/emby2Alist/nginx/conf.d/exampleConfig/constant-all.js)
+## 如开启自动更新，请自行获取[最新配置文件](https://github.com/chen3861229/embyExternalUrl/blob/main/emby2Alist/nginx/conf.d/exampleConfig/constant-all.js)或者关闭自动更新，添加环境变量GIT_COMMIT_HASH=a263a401496c2bb84ed63e249d04610241d5c8cb指定特定commit运行
