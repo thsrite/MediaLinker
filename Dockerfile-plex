@@ -18,7 +18,7 @@ RUN apk --no-cache add nginx nginx-mod-http-js curl busybox git openssl logrotat
     echo "$TZ" > /etc/timezone && \
     mkdir -p /var/cache/nginx/emby/image /opt && \
     git clone $REPO_URL /embyExternalUrl && \
-    curl -L -o /tmp/lego_latest.tar.gz "https://github.com/go-acme/lego/releases/download/v3.7.0/lego_v3.7.0_linux_amd64.tar.gz" && \
+    curl -L -o /tmp/lego_latest.tar.gz "https://github.com/go-acme/lego/releases/download/v4.24.0/lego_v4.24.0_linux_amd64.tar.gz" && \
     tar zxvf /tmp/lego_latest.tar.gz -C /tmp && \
     chmod 755 /tmp/lego && \
     mv /tmp/lego / && \
